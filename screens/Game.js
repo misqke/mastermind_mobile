@@ -1,13 +1,29 @@
-import { View, Text, SafeAreaView } from "react-native";
-import { Title, Screen } from "../components";
-import React from "react";
+import { View, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
+import { Title, BottomBar, HomeButton, HelpButton } from "../components";
+import React, { useState } from "react";
+import { COLORS } from "../constants/colors";
 
-const Game = () => {
+const Game = ({ route, navigation }) => {
+  const { codeLength, numColors } = route.params;
   return (
-    <Screen>
+    <SafeAreaView style={styles.screen}>
+      <StatusBar barStyle={"light-content"} />
       <Title />
-    </Screen>
+      <HomeButton />
+      <HelpButton />
+      <BottomBar data={{ codeLength, numColors }} />
+    </SafeAreaView>
   );
 };
 
 export default Game;
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+  },
+});

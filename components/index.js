@@ -1,4 +1,7 @@
 import Title from "./Title";
-import Screen from "./Screen";
 
-export { Title, Screen };
+import BottomBar from "./BottomBar";
+import ColorBall from "./ColorBall";
+import { HomeButton, HelpButton } from "./Buttons";
+
+export { Title, BottomBar, ColorBall, HomeButton, HelpButton };
