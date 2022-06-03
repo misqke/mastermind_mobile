@@ -1,17 +1,39 @@
 import { View, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
-import { Title, BottomBar, HomeButton, HelpButton } from "../components";
-import React, { useState } from "react";
+import {
+  Title,
+  BottomBar,
+  HomeButton,
+  HelpButton,
+  GameBoard,
+} from "../components";
+import React, { useState, useEffect } from "react";
 import { COLORS } from "../helpers/constants";
+import { generateCode, checkGuess } from "../helpers/functions";
 
 const Game = ({ route, navigation }) => {
-  const { codeLength, numColors } = route.params;
+  const { numColors, codeLength } = route.params;
+  const [code, setCode] = useState([]);
+  const [guesses, setGuesses] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+
+  const submitGuess = (guess) => {
+    const results = checkGuess(guess, code);
+    setGuesses((prev) => [...prev, { guess, results }]);
+  };
+
+  // generate and set code at page load
+  useEffect(() => {
+    setCode(generateCode(numColors, codeLength));
+  }, []);
+
   return (
     <SafeAreaView style={styles.screen}>
       <StatusBar barStyle={"light-content"} />
       <Title />
       <HomeButton />
       <HelpButton />
-      <BottomBar data={{ codeLength, numColors }} />
+      <GameBoard guesses={guesses} />
+      <BottomBar data={{ codeLength, numColors }} submitGuess={submitGuess} />
     </SafeAreaView>
   );
 };

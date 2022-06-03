@@ -38,7 +38,7 @@ const GuessBlock = ({ color, index, currentIndex, press, codeLength }) => {
   );
 };
 
-const CurrentGuess = ({ currentIndex, guess, press, codeLength }) => {
+const CurrentGuess = ({ currentIndex, guess, press, codeLength, submit }) => {
   return (
     <View style={styles.guessBar}>
       <View style={styles.guessContainer}>
@@ -53,7 +53,7 @@ const CurrentGuess = ({ currentIndex, guess, press, codeLength }) => {
           />
         ))}
       </View>
-      <TouchableOpacity style={styles.submitBtn}>
+      <TouchableOpacity style={styles.submitBtn} onPress={submit}>
         <Text>Submit</Text>
       </TouchableOpacity>
       <View style={styles.label}>
@@ -63,9 +63,15 @@ const CurrentGuess = ({ currentIndex, guess, press, codeLength }) => {
   );
 };
 
-const BottomBar = ({ data }) => {
+const BottomBar = ({ data, submitGuess }) => {
   const [guess, setGuess] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [blankGuess, setBlankGuess] = useState([]);
+
+  const handleSubmitGuess = (guess) => {
+    submitGuess(guess);
+    setGuess(blankGuess);
+  };
 
   const handleColorBtnPress = (color) => {
     if (currentIndex === null) return;
@@ -85,6 +91,7 @@ const BottomBar = ({ data }) => {
       startingGuess.push({ name: "transparent", code: "transparent" });
     }
     setGuess(startingGuess);
+    setBlankGuess(startingGuess);
   }, [data.codeLength]);
 
   return (
@@ -94,6 +101,7 @@ const BottomBar = ({ data }) => {
         guess={guess}
         press={setCurrentIndex}
         codeLength={data.codeLength}
+        submit={handleSubmitGuess}
       />
       <View style={styles.btnContainer}>
         {COLORS.slice(0, data.numColors).map((color) => (
