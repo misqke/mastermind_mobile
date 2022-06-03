@@ -1,5 +1,5 @@
 import { Image, Pressable } from "react-native";
-import { house, help } from "../constants/images";
+import { house, help } from "../helpers/constants";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 

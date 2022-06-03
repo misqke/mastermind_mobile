@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { COLORS } from "../constants/colors";
+import { COLORS } from "../helpers/constants";
 import ColorBall from "./ColorBall";
 
 const ColorButton = ({ color, press }) => {

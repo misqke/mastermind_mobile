@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
 import { Title, BottomBar, HomeButton, HelpButton } from "../components";
 import React, { useState } from "react";
-import { COLORS } from "../constants/colors";
+import { COLORS } from "../helpers/constants";
 
 const Game = ({ route, navigation }) => {
   const { codeLength, numColors } = route.params;
