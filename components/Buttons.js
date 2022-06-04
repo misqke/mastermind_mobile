@@ -19,9 +19,10 @@ export const HomeButton = () => {
   );
 };
 
-export const HelpButton = () => {
+export const HelpButton = ({ press }) => {
   return (
     <Pressable
+      onPress={() => press()}
       style={{
         position: "absolute",
         top: 40,

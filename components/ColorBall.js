@@ -9,6 +9,9 @@ const ColorBall = ({ color }) => {
         height: "90%",
         borderRadius: "50%",
         backgroundColor: color,
+        borderColor: "black",
+        borderWidth: 1.5,
+        borderStyle: "solid",
       }}
     />
   );

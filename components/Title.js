@@ -6,11 +6,10 @@ const Title = () => {
     <>
       <Text
         style={{
-          color: "#ccc",
+          color: "#7cc",
           fontSize: 36,
           fontWeight: "600",
-          position: "absolute",
-          top: 35,
+          marginTop: 10,
         }}
       >
         MASTERMIND

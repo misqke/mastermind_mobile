@@ -10,27 +10,58 @@ export const generateCode = (numColors, codeLength) => {
   return newCode;
 };
 
+export const generateStartingGuesses = (codeLength) => {
+  const startingGuesses = [];
+  for (let i = 0; i < 8; i++) {
+    let guess = [];
+    let results = [];
+    for (let k = 0; k < codeLength; k++) {
+      guess.push("black");
+      results.push(false);
+    }
+    startingGuesses.push({ guess, results });
+  }
+  return startingGuesses;
+};
+
 export const checkGuess = (guess, code) => {
-  let results = { correct: 0, close: 0 };
-  let incorrectColors = [];
+  let results = [];
+  let incorrectIndexes = [];
   // check for correct guesses
   guess.forEach((color, i) => {
-    if (color.name === code[i].name) {
-      results.correct += 1;
+    if (color === code[i]) {
+      results.push("black");
     } else {
-      incorrectColors.push(color.name);
+      incorrectIndexes.push(i);
     }
   });
   // check for correct colors in wrong spots
-  guess.forEach((color, i) => {
-    if (color.name !== code[i].name) {
-      if (incorrectColors.includes(color.name)) {
-        const index = incorrectColors.findIndex(color.name);
-        results.close += 1;
-        incorrectColors.splice(index, 1);
+  let codeClone = [...code];
+  incorrectIndexes.forEach((x) => {
+    for (let i = 0; i < codeClone.length; i++) {
+      if (x !== i && codeClone[i] !== guess[i]) {
+        if (guess[x] === codeClone[i]) {
+          results.push("white");
+          codeClone.splice(i, 1);
+          break;
+        }
       }
     }
   });
 
+  while (results.length < guess.length) {
+    results.push(false);
+  }
   return results;
+};
+
+export const checkWin = (results) => {
+  let win = true;
+  results.forEach((result) => {
+    if (result !== "black") {
+      win = false;
+      return;
+    }
+  });
+  return win;
 };

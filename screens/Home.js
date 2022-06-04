@@ -6,14 +6,19 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { Title } from "../components";
+import { Title, HelpButton, Help } from "../components";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const [help, setHelp] = useState(false);
   const [codeLength, setCodeLength] = useState(4);
   const [numColors, setNumColors] = useState(6);
   const navigation = useNavigation();
+
+  const handleHelpPress = () => {
+    setHelp((prev) => !prev);
+  };
 
   const handleCodeLengthChange = (num) => {
     if (num === -1) {
@@ -44,6 +49,8 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <StatusBar barStyle="light-content" />
+      <HelpButton press={handleHelpPress} />
+      <Help show={help} />
       <Title />
       <View style={styles.form}>
         <View style={styles.formControl}>
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 30,
-    color: "white",
+    color: "#7cc",
   },
   valueBtn: {
     borderRadius: "50%",
@@ -192,12 +199,12 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   btnText: {
-    color: "white",
+    color: "#7cc",
     fontSize: 30,
     lineHeight: 30,
   },
   playBtn: {
-    borderColor: "white",
+    borderColor: "#7cc",
     borderStyle: "solid",
     borderWidth: 1,
     width: 300,
